@@ -96,6 +96,3 @@ const int PIN_DEL_VERTE[DIFFICULTE_MAX] = {
 
 
 #endif
-
-
-
