@@ -83,7 +83,7 @@ const int PIN_DEL_VERTE[DIFFICULTE_MAX] = {
 
 // Nombre de colonnes/lignes de l'ecran LCD
 #define LCD_NB_COLONNES      16
-#define LCD_NB_LIGNES        2        // Minimum : 2 lignes
+#define LCD_NB_LIGNES        2    // Minimum : 2 lignes
 
 // --------------------------------------------
 // Definitions logicielles

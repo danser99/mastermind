@@ -8,9 +8,9 @@
 #ifndef _jeu_h
 #define _jeu_h
 
+
 #include <Arduino.h>
 #include "io.h"
-
 
 // Classe Essai, controle les essais du joueur
 class Essai
@@ -20,17 +20,17 @@ class Essai
         ~Essai();
         
         // Pour obtenir les elements
-        unsigned int nbVert() const;
-        unsigned int nbRouge() const;
-        unsigned int rendu() const;
+        unsigned int obtenirNbVert() const;
+        unsigned int obtenirNbRouge() const;
+        unsigned int obtenirRendu() const;
         
         // Pour controler
         boolean ajouterSymbole(Symbole symbole);
         void effacerSequence();
         void comparerSequence(const Symbole *seq);
         
-        // Pour afficher    // arranger VOID = LiquidCrystal !
-        void afficher(/*void *lcd,*/ boolean bas = false) const;
+        // Pour afficher
+        void afficher(LiquidCrystal *lcd, boolean bas = false) const;
 
     private:  
         Symbole *seq_;            // La sequence du joueur
@@ -46,16 +46,17 @@ class Essai
         unsigned int noEssai_;    // Le numero de l'essai courant
 };
 
+
 // Fonctions d'enregistrement et de lecture de meilleur score
 // (utilise la EEPROM)
 void enregistrerScore(unsigned int difficulte, unsigned int score);
-void lireScore(unsigned int difficulte);
+unsigned int lireScore(unsigned int difficulte);
 
 // Fonction de nouvelle partie
-unsigned int choisirDifficulte();
+unsigned int choisirDifficulte(LiquidCrystal *lcd);
 
 // Fonction de generation de sequence aleatoire
-Symbole *genererSequence(unsigned int difficulte);
+Symbole* genererSequence(unsigned int difficulte);
 
 
 #endif

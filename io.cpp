@@ -326,8 +326,10 @@ int verifierCar(char car)
  *                
  *
  **************************************************************/
- void afficherLcd(LiquidCrystal *lcd, String ligne1, Position posLigne1,
-                  String ligne2, Position posLigne2, boolean haut, boolean bas)
+ void afficherLcd(LiquidCrystal *lcd,
+                  String ligne1, Position posLigne1,
+                  String ligne2, Position posLigne2,
+                  boolean haut, boolean bas)
  {
      int carRemplace = 0;
      int i;           // Pour iterations

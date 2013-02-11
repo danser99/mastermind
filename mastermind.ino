@@ -6,6 +6,7 @@
  **************************************************************/
  
 #include <LiquidCrystal.h>        // Pour affichage LCD
+#include <EEPROM.h>
 #include "reglages.h"             // Reglages materiels
 #include "io.h"                   // Controle des entrees/sorties
 #include "jeu.h"                  // Controle du jeu
@@ -45,7 +46,6 @@ void setup()
     // Initialisation de la sequence aleatoire avec du bruit
     randomSeed(analogRead(PIN_ANALOG_VIDE));
 }
-
 
 
 // Boucle principale
