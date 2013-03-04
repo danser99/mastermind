@@ -46,6 +46,12 @@ const int PIN_DEL_VERTE[DIFFICULTE_MAX] = {
 #define PIN_LCD_DATA1      4
 #define PIN_LCD_DATA2      3
 #define PIN_LCD_DATA3      2
+/*
+#define PIN_LCD_DATA4      8
+#define PIN_LCD_DATA5      7
+#define PIN_LCD_DATA6      6
+#define PIN_LCD_DATA7      1
+*/
 
 #define LCD_CONTRAST_VAL   50    // Valeur pour ajustement du contrast
 

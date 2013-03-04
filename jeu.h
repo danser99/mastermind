@@ -33,7 +33,7 @@ class Essai
         void afficher(LiquidCrystal *lcd, boolean bas = false) const;
 
     private:  
-        Symbole *seq_;            // La sequence du joueur
+        Symbole seq_[DIFFICULTE_MAX]; // La sequence du joueur
         unsigned int rendu_;      // La position du symbole a etre
 				  // entre pour l'essai
 

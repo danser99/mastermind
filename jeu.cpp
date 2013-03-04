@@ -24,8 +24,8 @@
 Essai::Essai(unsigned int difficulte, unsigned int noEssai)
 {
     // Initialisation de la sequence
-    seq_ = new Symbole [difficulte];
-    for (int i = 0; i < difficulte; i++)
+
+    for (int i = 0; i < DIFFICULTE_MAX; i++)
         seq_[i] = RIEN;
     
     // Initialisation des attributs
@@ -50,7 +50,6 @@ Essai::Essai(unsigned int difficulte, unsigned int noEssai)
  **************************************************************/
 Essai::~Essai()
 {
-    delete [] seq_;
 }
 
 
@@ -173,10 +172,8 @@ void Essai::comparerSequence(const Symbole seq[])
     int i, j;     // Pour iterations
     
     // Pour verifier si la position a ete deja trouvee (vert)
-    boolean *trouve;
+    boolean trouve[DIFFICULTE_MAX];
     
-    // Initialisation de trouve en verifiant nbVert
-    trouve = new boolean[difficulte_];
     for (i = 0; i < difficulte_; i++) {
         if (seq_[i] == seq[i]) {
             nbVert++;
@@ -396,10 +393,8 @@ unsigned int choisirDifficulte(LiquidCrystal *lcd)
  **************************************************************/
 Symbole* genererSequence(unsigned int difficulte)
 {
-    Symbole *seq;
-    
-    seq = new Symbole [difficulte];
-    
+    Symbole seq[DIFFICULTE_MAX] = {RIEN};
+
     for (int i = 0; i < difficulte; i++)
         seq[i] = Symbole(random(X, PLUS + 1));
         
