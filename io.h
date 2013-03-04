@@ -25,10 +25,10 @@ enum Symbole {  RIEN = 0,
                 PLUS,
                 HAUT,
                 BAS,
-                CLR };
+                CLR,
+                NB_SYMBOLES    // Dernier element
+            };
                 
-const int NB_SYMBOLES = 10;
-
 
 // Position possibles pour affichage LCD
 enum Position { GAUCHE, DROITE, CENTRE };

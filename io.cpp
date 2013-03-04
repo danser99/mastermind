@@ -334,9 +334,9 @@ int verifierCar(char car)
      int carRemplace = 0;
      int i;           // Pour iterations
      String ligne;    // Ligne traitee
-     
+
      lcd->clear();    // Efface l'ecran
-     
+
      // Traitement de la ligne 1
      switch (posLigne1) {
          // Si le texte est a gauche
@@ -366,8 +366,8 @@ int verifierCar(char car)
      }
 
      lcd->print(ligne1);	// Affichage de la ligne 1
-      
-      
+
+
      // Traitement de la ligne 2
      // Chaque caractere est traite individuellement
      switch (posLigne2) {
@@ -375,13 +375,13 @@ int verifierCar(char car)
          case GAUCHE :
              lcd->setCursor(0,1);          // Inscription au debut de la ligne
              break;
-             
+
          // Si le texte est a droite
          case DROITE :
              // Inscription a la fin de la ligne
              lcd->setCursor(LCD_NB_COLONNES - 2 - ligne2.length(), 1);
              break;
-                     
+
          // Si le texte est au centre
          case CENTRE :
          {
@@ -390,7 +390,7 @@ int verifierCar(char car)
              lcd->setCursor(espacesVides, 1);
 	     break;
          }
-         
+
          // Par defaut
          default :
              lcd->setCursor(0,1);
@@ -416,5 +416,5 @@ int verifierCar(char car)
          lcd->setCursor(LCD_NB_COLONNES - 1, 1);
          lcd->write(CAR_BAS);
      }
-         
+
  }

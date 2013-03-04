@@ -13,14 +13,16 @@
 
 
 // Etat de la partie
-enum EtatPartie { NOUVELLE, ENCOURS, TERMINEE };
+enum EtatPartie { NOUVELLE, ENCOURS, FIN_PERDU, FIN_GAGNE };
 
 // Variables utilisees
 EtatPartie etatPartie;        // L'etat de la partie
 unsigned int difficulte;      // La difficulte du jeu
+unsigned int meilleurScore;   // Le meilleur score pour la difficulte
 Essai *essais[NB_ESSAIS_MAX]; // Le tableau des essais
 Symbole *seqATrouver;         // La sequence de symboles a trouver
 Symbole entree;               // Le bouton appuye
+bool essaiEntre;              // Si l'essai en cours a ete entre
 unsigned int noEssai;         // Le numero de l'essai en cours
 unsigned int essaiAffiche;    // Le numero de l'essai affiche (pour navigation)
 
@@ -62,12 +64,29 @@ void loop()
         case NOUVELLE :
             // Demande du choix de difficulte
             difficulte = choisirDifficulte(&lcd);
+            
+            // Lecture du meilleur score
+            meilleurScore = lireScore(difficulte);
+            
+            // Affichage meilleurScore
+            if (meilleurScore != 0) {
+                
+                String texte = " essai";
+                if (meilleurScore > 1)
+                    texte += String("s");
+                    
+                afficherLcd(&lcd, "Meilleure partie", CENTRE,
+                            String(meilleurScore) + texte, CENTRE);
+                delay(1000);
+            }
+            
             // Generation de sequence aleatoire
             seqATrouver = genererSequence(difficulte);
             
             // Initialisation des essais
-            noEssai = 1;
-            essaiAffiche = 1;
+            noEssai = 0;
+            essaiAffiche = 0;
+            essaiEntre = false;
             essais[noEssai] = new Essai(difficulte, noEssai);
             
             // Affichage de l'essai #1
@@ -76,9 +95,149 @@ void loop()
             // Debut de partie
             etatPartie = ENCOURS;
             break;
+
+
+        case ENCOURS :
+            // Lecture des entrees
+            entree = lireBoutons();
+
+            // Verification attente de nouvel essai
+            if (essaiEntre && entree != RIEN) {
+                essaiEntre = false;
+                essais[noEssai]->afficher(&lcd, false);
+                break;
+            }
+
+            switch (entree) {
+
+                case X :
+                case O :
+                case CARRE :
+                case COEUR :
+                case ETOILE :
+                case PLUS :
+                    // Ajout du symbole
+                    essaiEntre = essais[noEssai]-> ajouterSymbole(entree);
+
+                    // Essai qui sera affiche
+                    essaiAffiche = noEssai;
+
+                    // Si l'essai est entre en entier
+                    if (essaiEntre) {
+                        essais[noEssai]->comparerSequence(seqATrouver);
+                        essais[noEssai++]->afficher(&lcd, true);
+
+                        // Gestion partie terminee (trop d'essais)
+                        if (noEssai > NB_ESSAIS_MAX) {
+                            etatPartie = FIN_PERDU;
+                            break;
+                        }
+                        // Gestion partie terminee (trouve)
+                        if (essais[noEssai-1]->obtenirNbVert() >= difficulte) {
+                            etatPartie = FIN_GAGNE;
+                            break;
+                        }
+
+                        // Nouvel essai
+                        essais[noEssai] = new Essai (difficulte, noEssai);
+                    }
+                    else
+                        essais[noEssai]->afficher(&lcd, false);
+
+                    break;
+
+                case HAUT :
+                    // Si ce n'est pas le permier essai,
+                    // affichage de l'essai precedent
+                    if (essaiAffiche > 1)
+                        essais[--essaiAffiche]->afficher(&lcd, true);
+                    break;
+
+                case BAS :
+                    // Si ce n'est pas l'essai courant,
+                    // affichage de l'essai suivant
+                    if (essaiAffiche < noEssai)
+                        essais[++essaiAffiche]->afficher(&lcd,
+						(essaiAffiche < noEssai));
+                    break;
+
+                case CLR :
+                    // Si l'essai affiche n'est pas l'essai courant
+                    // on retourne a l'affichage de l'essai courant
+                    if (essaiAffiche != noEssai) {
+                        essaiAffiche = noEssai;
+                        essais[noEssai]->afficher(&lcd, false);
+                    }
+                    // Si l'essai est commence
+                    // On efface l'essai en cours
+                    else if (essaiAffiche == noEssai &&
+			     essais[noEssai]->obtenirRendu()) {
+                        essais[noEssai]->effacerSequence();
+                    }
+                    // Sinon, on debute une nouvelle partie
+                    else {
+                        etatPartie = NOUVELLE;
+                        // Desallocation memoire dynamique
+                        for (int i = 0; i <= noEssai; i++)
+                            delete essais[i];
+                    }
+                    break;
+
+                case RIEN :
+                default : ; // Aucune action
+            }
+            break;
+
+
+        case FIN_PERDU :
+            // Attente d'interaction
+            if (lireBoutons() != RIEN) {
+                // Affichage de la solution
+                String ligne2 = String("REPONSE: ") +
+                                obtenirStr(seqATrouver, difficulte);
+                afficherLcd(&lcd, "Partie Terminee", CENTRE,
+                            ligne2, GAUCHE, false, false);
+
+                delay(3000);    // Attente 3 sec
+                
+                // Desallocation memoire dynamique
+                for (int i = 0; i < noEssai; i++)
+                    delete essais[i];
+                    
+                etatPartie = NOUVELLE;    // Nouvelle partie
+            }
+            break;
+
+
+        case FIN_GAGNE:
+        default :
+            String texte = " essais";
+            delay(100);        // Leger delai
+            afficherLcd(&lcd, "FELICITATIONS!", CENTRE);
+            delay(1000);
             
+            // Cas gagner en 1 essai
+            if (noEssai == 1)
+                texte = " essai";
             
-        default :;
-            // Erreur
+            afficherLcd(&lcd, "Partie terminee", GAUCHE,
+                        String("en ") + String(noEssai) + texte, GAUCHE);
+                        
+            if (noEssai < meilleurScore) {
+                delay(1500);
+                afficherLcd(&lcd, "Meilleure partie", CENTRE,
+                        String(noEssai) + texte, CENTRE);
+                        
+                // Enregistrement meilleurScore
+                enregistrerScore(difficulte, noEssai);
+            }
+
+            delay(3000);
+
+            // Desallocation memoire dynamique
+            for (int i = 0; i < noEssai; i++)
+                delete essais[i];
+
+            etatPartie = NOUVELLE;
     }
 }

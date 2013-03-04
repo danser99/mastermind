@@ -200,8 +200,6 @@ void Essai::comparerSequence(const Symbole seq[])
 
     nbRouge_ = nbRouge;
     nbVert_ = nbVert;
-    
-    delete [] trouve;
 }
 
 
@@ -220,40 +218,11 @@ void Essai::comparerSequence(const Symbole seq[])
  **************************************************************/
 void Essai::afficher(LiquidCrystal *lcd, boolean bas) const
 {
-    String ligne1 = String("Essai ") + String(noEssai_);
-    String ligne2 = "";
-    
-    // Sequence pour ligne2
-    for (int i = 0; i < difficulte_; i++) {
-        switch (seq_[i]) {
-            case X :
-                ligne2 += String("X ");
-                break;
-            case O :
-                ligne2 += String("O ");
-                break;
-            case CARRE :
-                ligne2 += (String(char(254)) + String(" "));
-                break;
-            case COEUR :
-                ligne2 += String(SYMB_COEUR + String(" "));
-                break;
-            case ETOILE :
-                ligne2 += String("* ");
-                break;
-            case PLUS :
-                ligne2 += String("+ ");
-                break;
-            case RIEN :
-            default :
-                ligne2 += String("_ ");            
-        }
-    }
-        
-    ligne2.trim();    // Retire l'espace a la fin
+    String ligne1 = String("Essai ") + String(noEssai_ + 1);
+    String ligne2 = obtenirStr(seq_, difficulte_);
     
     afficherLcd(lcd, ligne1, GAUCHE, ligne2, CENTRE,
-                (noEssai_ - 1), // False si noEssai = 1
+                (noEssai_), // False si 1er essai
                 bas);
     allumerDel(nbRouge_, nbVert_);
 }
@@ -399,4 +368,50 @@ Symbole* genererSequence(unsigned int difficulte)
         seq[i] = Symbole(random(X, PLUS + 1));
         
     return seq;
+}
+
+
+
+/**************************************************************
+ *    obtenirStr
+ *
+ *    Convertie un tableau de symboles en String
+ *
+ *    Arguments: seq : la sequence a convertir
+ *               longueur : la longueur du tableau
+ *    Retour:    La chaine de texte contenant la sequence
+ *
+ **************************************************************/
+String obtenirStr(const Symbole seq[], unsigned int longueur)
+{
+    String s = "";
+
+    for (int i = 0; i < longueur; i++) {
+        switch (seq[i]) {
+            case X :
+                s += String("X ");
+                break;
+            case O :
+                s += String("O ");
+                break;
+            case CARRE :
+                s += (String(char(254)) + String(" "));
+                break;
+            case COEUR :
+                s += String(SYMB_COEUR + String(" "));
+                break;
+            case ETOILE :
+                s += String("* ");
+                break;
+            case PLUS :
+                s += String("+ ");
+                break;
+            case RIEN :
+            default :
+                s += String("_ ");
+        }
+    }
+
+    s.trim();    // Retire l'espace a la fin
+    return s;
 }

@@ -58,5 +58,8 @@ unsigned int choisirDifficulte(LiquidCrystal *lcd);
 // Fonction de generation de sequence aleatoire
 Symbole* genererSequence(unsigned int difficulte);
 
+//Fonction pour obtenir une string a partir d'une sequence
+String obtenirStr(const Symbole seq[], unsigned int longueur);
+
 
 #endif
