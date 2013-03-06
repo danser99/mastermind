@@ -146,9 +146,9 @@ Symbole lireBoutons()
         nbAppuyes++;
         ret = X;
     }
-    if (lecture == etatPrecedent[X])    // Si l'etat n'a pas change
-        if (lecture == HIGH)            // Et que le bouton est active
-            ok = false;                 // On devalide l'entree
+    // Si l'etat n'a pas change et que le bouton est active
+    if (lecture == etatPrecedent[X] && lecture == HIGH)
+        ok = false;                     // On devalide l'entree
     else
         etatPrecedent[X] = lecture;     // Si l'etat a change, on enregistre
 					// le nouvel etat
@@ -160,9 +160,9 @@ Symbole lireBoutons()
         nbAppuyes++;
         ret = O;
     }
-    if (lecture == etatPrecedent[O])    // Si l'etat n'a pas change
-        if (lecture == HIGH)            // Et que le bouton est active
-            ok = false;                 // On devalide l'entree
+    // Si l'etat n'a pas change et que le bouton est active
+    if (lecture == etatPrecedent[O] && lecture == HIGH)
+        ok = false;                     // On devalide l'entree
     else
         etatPrecedent[O] = lecture;     // Si l'etat a change, on enregistre
 					// le nouvel etat
@@ -174,9 +174,9 @@ Symbole lireBoutons()
         nbAppuyes++;
         ret = CARRE;
     }
-    if (lecture == etatPrecedent[CARRE])// Si l'etat n'a pas change
-        if (lecture == HIGH)            // Et que le bouton est active
-            ok = false;                 // On devalide l'entree
+    // Si l'etat n'a pas change et que le bouton est active
+    if (lecture == etatPrecedent[CARRE] && lecture == HIGH)
+        ok = false;                     // On devalide l'entree
     else
         etatPrecedent[CARRE] = lecture; // Si l'etat a change, on enregistre
 					// le nouvel etat
@@ -188,9 +188,9 @@ Symbole lireBoutons()
         nbAppuyes++;
         ret = COEUR;
     }
-    if (lecture == etatPrecedent[COEUR])// Si l'etat n'a pas change
-        if (lecture == HIGH)            // Et que le bouton est active
-            ok = false;                 // On devalide l'entree
+    // Si l'etat n'a pas change et que le bouton est active
+    if (lecture == etatPrecedent[COEUR] && lecture == HIGH)
+        ok = false;                     // On devalide l'entree
     else
         etatPrecedent[COEUR] = lecture; // Si l'etat a change, on enregistre
 					// le nouvel etat
@@ -202,9 +202,9 @@ Symbole lireBoutons()
         nbAppuyes++;
         ret = ETOILE;
     }
-    if (lecture == etatPrecedent[ETOILE])    // Si l'etat n'a pas change
-        if (lecture == HIGH)            // Et que le bouton est active
-            ok = false;                 // On devalide l'entree
+    // Si l'etat n'a pas change et que le bouton est active
+    if (lecture == etatPrecedent[ETOILE] && lecture == HIGH)
+        ok = false;                     // On devalide l'entree
     else
         etatPrecedent[ETOILE] = lecture;     // Si l'etat a change,
 					     // on enregistre le nouvel etat
@@ -216,9 +216,9 @@ Symbole lireBoutons()
         nbAppuyes++;
         ret = PLUS;
     }
-    if (lecture == etatPrecedent[PLUS]) // Si l'etat n'a pas change
-        if (lecture == HIGH)            // Et que le bouton est active
-            ok = false;                 // On devalide l'entree
+    // Si l'etat n'a pas change et que le bouton est active
+    if (lecture == etatPrecedent[PLUS] && lecture == HIGH)
+        ok = false;                     // On devalide l'entree
     else
         etatPrecedent[PLUS] = lecture;  // Si l'etat a change, on enregistre
 					// le nouvel etat
@@ -230,9 +230,9 @@ Symbole lireBoutons()
         nbAppuyes++;
         ret = HAUT;
     }
-    if (lecture == etatPrecedent[HAUT]) // Si l'etat n'a pas change
-        if (lecture == HIGH)            // Et que le bouton est active
-            ok = false;                 // On devalide l'entree
+    // Si l'etat n'a pas change et que le bouton est active
+    if (lecture == etatPrecedent[HAUT] && lecture == HIGH)
+        ok = false;                     // On devalide l'entree
     else
         etatPrecedent[HAUT] = lecture;  // Si l'etat a change, on enregistre
 					// le nouvel etat
@@ -244,9 +244,9 @@ Symbole lireBoutons()
         nbAppuyes++;
         ret = BAS;
     }
-    if (lecture == etatPrecedent[BAS])  // Si l'etat n'a pas change
-        if (lecture == HIGH)            // Et que le bouton est active
-            ok = false;                 // On devalide l'entree
+    // Si l'etat n'a pas change et que le bouton est active
+    if (lecture == etatPrecedent[BAS] && lecture == HIGH)
+        ok = false;                     // On devalide l'entree
     else
         etatPrecedent[BAS] = lecture;   // Si l'etat a change, on enregistre
 					// le nouvel etat
@@ -258,9 +258,9 @@ Symbole lireBoutons()
         nbAppuyes++;
         ret = CLR;
     }
-    if (lecture == etatPrecedent[CLR])  // Si l'etat n'a pas change
-        if (lecture == HIGH)            // Et que le bouton est active
-            ok = false;                 // On devalide l'entree
+    // Si l'etat n'a pas change et que le bouton est active
+    if (lecture == etatPrecedent[CLR] && lecture == HIGH)
+        ok = false;                     // On devalide l'entree
     else
         etatPrecedent[CLR] = lecture;   // Si l'etat a change, on enregistre
 					// le nouvel etat

@@ -205,7 +205,7 @@ void loop()
             // Attente d'interaction
             if (lireBoutons() != RIEN) {
                 // Affichage de la solution
-                String ligne2 = String("REPONSE: ") +
+                String ligne2 = String("SOLUTION: ") +
                                 obtenirStr(seqATrouver, difficulte);
                 afficherLcd(&lcd, "Partie Terminee", CENTRE,
                             ligne2, GAUCHE, false, false);
