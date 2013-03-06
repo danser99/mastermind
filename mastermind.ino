@@ -26,9 +26,20 @@ bool essaiEntre;              // Si l'essai en cours a ete entre
 unsigned int noEssai;         // Le numero de l'essai en cours
 unsigned int essaiAffiche;    // Le numero de l'essai affiche (pour navigation)
 
-LiquidCrystal lcd(PIN_LCD_REG, PIN_LCD_ENBL,    // L'objet pour affichage LCD
-                  PIN_LCD_DATA0, PIN_LCD_DATA1,
-                  PIN_LCD_DATA2, PIN_LCD_DATA3);
+// L'objet pour affichage LCD
+#ifdef LCD_8BIT_MODE
+    LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_RW, PIN_LCD_ENBL,
+                      PIN_LCD_DATA0, PIN_LCD_DATA1,
+                      PIN_LCD_DATA2, PIN_LCD_DATA3,
+                      PIN_LCD_DATA4, PIN_LCD_DATA5,
+                      PIN_LCD_DATA6, PIN_LCD_DATA7);
+#else
+    LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_RW, PIN_LCD_ENBL,
+                      PIN_LCD_DATA4, PIN_LCD_DATA5,
+                      PIN_LCD_DATA6, PIN_LCD_DATA7);
+#endif
+
+
 
 // Initialisations
 void setup()
@@ -54,6 +65,7 @@ void setup()
     // Nouvelle partie
     etatPartie = NOUVELLE;
 }
+
 
 
 // Boucle principale

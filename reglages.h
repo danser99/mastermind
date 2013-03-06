@@ -39,19 +39,22 @@ const int PIN_DEL_VERTE[DIFFICULTE_MAX] = {
 
 
 // Affichage LCD
-#define PIN_LCD_REG        12
+#define LCD_8BIT_MODE           // Si mode 8bits
+
+#define PIN_LCD_RS         12
+#define PIN_LCD_RW         10   // Optionel
 #define PIN_LCD_ENBL       11
-#define PIN_LCD_CONTRAST   9    // Doit etre PWM
-#define PIN_LCD_DATA0      5
-#define PIN_LCD_DATA1      4
-#define PIN_LCD_DATA2      3
-#define PIN_LCD_DATA3      2
-/*
-#define PIN_LCD_DATA4      8
-#define PIN_LCD_DATA5      7
-#define PIN_LCD_DATA6      6
-#define PIN_LCD_DATA7      1
-*/
+#define PIN_LCD_CONTRAST   9    // Doit etre PWM, PIN V0
+#define PIN_LCD_DATA4      5
+#define PIN_LCD_DATA5      4
+#define PIN_LCD_DATA6      3
+#define PIN_LCD_DATA7      2
+
+#define PIN_LCD_DATA0      8
+#define PIN_LCD_DATA1      7
+#define PIN_LCD_DATA2      6
+#define PIN_LCD_DATA3      1
+
 
 #define LCD_CONTRAST_VAL   50    // Valeur pour ajustement du contrast
 
