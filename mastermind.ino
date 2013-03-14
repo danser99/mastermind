@@ -58,7 +58,7 @@ void setup()
 
     // Affichage ecran accueil
     afficherLcd(&lcd, "Mastermind", CENTRE);
-    delay(1000);        // Attente de 1 seconde
+    delay(1500);        // Attente de 1 seconde
 
     // Initialisation de la sequence aleatoire avec du bruit
     randomSeed(analogRead(PIN_ANALOG_VIDE));
@@ -103,7 +103,7 @@ void loop()
             essais[noEssai] = new Essai(difficulte, noEssai);
             
             // Affichage de l'essai #1
-            essais[noEssai]->afficher(&lcd, false);
+            essais[noEssai]->afficher(&lcd);
             
             // Debut de partie
             etatPartie = ENCOURS;
@@ -117,7 +117,7 @@ void loop()
             // Verification attente de nouvel essai
             if (essaiEntre && entree != RIEN) {
                 essaiEntre = false;
-                essais[noEssai]->afficher(&lcd, false);
+                essais[noEssai]->afficher(&lcd);
                 break;
             }
 
