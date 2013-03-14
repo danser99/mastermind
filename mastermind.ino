@@ -189,20 +189,22 @@ void loop()
                     }
                     // Sinon, on demande pour une nouvelle partie
                     else {
+                        /* NE FONCTIONNE PAS
                         afficherLcd(&lcd, "Nouvelle partie?", GAUCHE,
                                     "X Non   O Oui", CENTRE);
-                        entree = RIEN;
+                        entree = lireBoutons();
                         while (entree != X || entree != O || entree != CLR) {
                             entree = lireBoutons();
                         }
-                        
+
                         // Si choix de nouvelle partie
                         if (entree == O) {
+                        */
                             etatPartie = NOUVELLE;
                             // Desallocation memoire dynamique
                             for (int i = 0; i <= noEssai; i++)
                                 delete essais[i];
-                        }
+                        //}
                     }
                     break;
 

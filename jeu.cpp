@@ -124,7 +124,7 @@ boolean Essai::ajouterSymbole(Symbole symbole)
     rendu_++;
     
     // Verification si la sequence est pleine
-    return (rendu_ >= difficulte_)
+    return (rendu_ >= difficulte_);
 }
 
 
