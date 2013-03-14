@@ -308,6 +308,9 @@ int verifierCar(char car)
  *    afficherLcd
  *
  *    Fonction qui affiche sur l'ecran LCD le texte desire
+ *
+ *    *Pour afficher 15-16 car, utiliser la position GAUCHE
+ *
  *    
  *    Arguments: *lcd     : Pointeur sur l'objet LiquidCrystal pour affichage
  *                ligne1  : Chaine du haut a afficher (String)

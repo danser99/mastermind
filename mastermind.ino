@@ -87,7 +87,7 @@ void loop()
                 if (meilleurScore > 1)
                     texte += String("s");
                     
-                afficherLcd(&lcd, "Meilleure partie", CENTRE,
+                afficherLcd(&lcd, "Meilleure partie", GAUCHE,
                             String(meilleurScore) + texte, CENTRE);
                 delay(1000);
             }
@@ -186,12 +186,22 @@ void loop()
 			     essais[noEssai]->obtenirRendu()) {
                         essais[noEssai]->effacerSequence();
                     }
-                    // Sinon, on debute une nouvelle partie
+                    // Sinon, on demande pour une nouvelle partie
                     else {
-                        etatPartie = NOUVELLE;
-                        // Desallocation memoire dynamique
-                        for (int i = 0; i <= noEssai; i++)
-                            delete essais[i];
+                        afficherLcd(&lcd, "Nouvelle partie?", GAUCHE,
+                                    "X Non   O Oui", CENTRE);
+                        entree = RIEN;
+                        while (entree != X || entree != O || entree != CLR) {
+                            entree = lireBoutons();
+                        }
+                        
+                        // Si choix de nouvelle partie
+                        if (entree == O) {
+                            etatPartie = NOUVELLE;
+                            // Desallocation memoire dynamique
+                            for (int i = 0; i <= noEssai; i++)
+                                delete essais[i];
+                        }
                     }
                     break;
 
@@ -237,7 +247,7 @@ void loop()
                         
             if (noEssai < meilleurScore) {
                 delay(1500);
-                afficherLcd(&lcd, "Meilleure partie", CENTRE,
+                afficherLcd(&lcd, "Meilleure partie", GAUCHE,
                         String(noEssai) + texte, CENTRE);
                         
                 // Enregistrement meilleurScore
