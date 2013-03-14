@@ -50,6 +50,7 @@ void setup()
     // Initialisation des caracteres speciaux pour LCD
     lcd.createChar(CAR_HAUT, CAR_HAUT_TABLE);
     lcd.createChar(CAR_BAS, CAR_BAS_TABLE);
+    lcd.createChar(CAR_CARRE, CAR_CARRE_TABLE);
     lcd.createChar(CAR_COEUR, CAR_COEUR_TABLE);
 
     // Initialisation LCD

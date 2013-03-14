@@ -103,6 +103,7 @@ const int PIN_DEL_VERTE[DIFFICULTE_MAX] = {
 //#define SYMB_HAUT        '%'    // Pas utilise
 //#define SYMB_BAS         '&'    // Pas utilise
 #define SYMB_COEUR       '$'
+#define SYMB_CARRE       '@'
 
 
 #endif

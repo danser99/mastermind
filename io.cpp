@@ -36,15 +36,27 @@ byte CAR_BAS_TABLE[8] = {
         B00000,
         B00000
         };
-    
+
+// Carre
+byte CAR_CARRE_TABLE[8] = {
+        B00000,
+        B11111,
+        B10001,
+        B10001,
+        B10001,
+        B10001,
+        B11111,
+        B00000
+        };
+
 // Coeur
 byte CAR_COEUR_TABLE[8] = {
         B00000,
         B01010,
-        B11111,
-        B11111,
-        B11111,
-        B01110,
+        B10101,
+        B10001,
+        B10001,
+        B01010,
         B00100,
         B00000
         };
@@ -291,6 +303,8 @@ int verifierCar(char car)
 {
     if (car == SYMB_COEUR)
         return CAR_COEUR;
+    else if (car == SYMB_CARRE)
+        return CAR_CARRE;
         
     /*  Ces fonctions ne sont pas utilisees
     else if (car == SYMB_HAUT)

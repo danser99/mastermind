@@ -331,7 +331,7 @@ unsigned int choisirDifficulte(LiquidCrystal *lcd)
     unsigned int dif;
 
     afficherLcd(lcd, String("X Facile"), GAUCHE,
-                String("O Norm   ") + String(char(254)) + String(" Diff"),
+                String("O Norm   ") + String(SYMB_CARRE) + String(" Diff"),
                 GAUCHE);
 
     while ( entree != X && entree != O && entree != CARRE )
@@ -395,7 +395,7 @@ String obtenirStr(const Symbole seq[], unsigned int longueur)
                 s += String("O ");
                 break;
             case CARRE :
-                s += (String(char(254)) + String(" "));
+                s += (String(SYMB_CARRE) + String(" "));
                 break;
             case COEUR :
                 s += String(SYMB_COEUR + String(" "));
