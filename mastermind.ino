@@ -162,7 +162,7 @@ void loop()
                 case HAUT :
                     // Si ce n'est pas le permier essai,
                     // affichage de l'essai precedent
-                    if (essaiAffiche > 1)
+                    if (essaiAffiche > 0)
                         essais[--essaiAffiche]->afficher(&lcd, true);
                     break;
 
