@@ -78,11 +78,12 @@ void initialiserIO()
     for (int i = 0; i < DIFFICULTE_MAX; i++) {
         pinMode(PIN_DEL_ROUGE[i], OUTPUT);
         pinMode(PIN_DEL_VERTE[i], OUTPUT);
+    }
         
     // LCD Contrast
     pinMode(PIN_LCD_CONTRAST, OUTPUT);
     analogWrite(PIN_LCD_CONTRAST, LCD_CONTRAST_VAL);
-    }
+    
 }
 
 
