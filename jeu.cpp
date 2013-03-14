@@ -349,27 +349,6 @@ unsigned int choisirDifficulte(LiquidCrystal *lcd)
 
 
 /**************************************************************
- *    genererSequence
- *
- *    Genere une sequence aleatoire
- *    
- *    Arguments: difficulte : la difficulte de la sequence
- *    Retour:    La sequence aleatoire
- *
- **************************************************************/
-Symbole* genererSequence(unsigned int difficulte)
-{
-    Symbole seq[DIFFICULTE_MAX] = {RIEN};
-
-    for (int i = 0; i < difficulte; i++)
-        seq[i] = Symbole(random(X, PLUS + 1));
-        
-    return seq;
-}
-
-
-
-/**************************************************************
  *    obtenirStr
  *
  *    Convertie un tableau de symboles en String

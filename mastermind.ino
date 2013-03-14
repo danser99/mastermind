@@ -20,7 +20,7 @@ EtatPartie etatPartie;        // L'etat de la partie
 unsigned int difficulte;      // La difficulte du jeu
 unsigned int meilleurScore;   // Le meilleur score pour la difficulte
 Essai *essais[NB_ESSAIS_MAX]; // Le tableau des essais
-Symbole *seqATrouver;         // La sequence de symboles a trouver
+Symbole seqATrouver[DIFFICULTE_MAX] = {RIEN}; // La sequence de symboles a trouver
 Symbole entree;               // Le bouton appuye
 bool essaiEntre;              // Si l'essai en cours a ete entre
 unsigned int noEssai;         // Le numero de l'essai en cours
@@ -61,7 +61,7 @@ void setup()
     delay(1500);        // Attente de 1 seconde
 
     // Initialisation de la sequence aleatoire avec du bruit
-    randomSeed(analogRead(PIN_ANALOG_VIDE));
+    //randomSeed(analogRead(PIN_ANALOG_VIDE));
 
     // Nouvelle partie
     etatPartie = NOUVELLE;
@@ -81,6 +81,11 @@ void loop()
             // Lecture du meilleur score
             meilleurScore = lireScore(difficulte);
             
+            
+            // Initialisation sequence aleatoire
+            // Selon temps choix difficulte
+            randomSeed(millis());
+            
             // Affichage meilleurScore
             if (meilleurScore != 0) {
                 
@@ -94,7 +99,8 @@ void loop()
             }
             
             // Generation de sequence aleatoire
-            seqATrouver = genererSequence(difficulte);
+            for (int i = 0; i < difficulte; i++)
+                seqATrouver[i] = Symbole(random(X, PLUS + 1));
             
             // Initialisation des essais
             noEssai = 0;
