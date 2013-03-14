@@ -254,7 +254,7 @@ void loop()
             afficherLcd(&lcd, "Partie terminee", GAUCHE,
                         String("en ") + String(noEssai) + texte, GAUCHE);
                         
-            if (noEssai < meilleurScore) {
+            if (noEssai < meilleurScore || meilleurScore == 0) {
                 delay(1500);
                 afficherLcd(&lcd, "Meilleure partie", GAUCHE,
                         String(noEssai) + texte, CENTRE);
