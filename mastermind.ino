@@ -123,8 +123,12 @@ void loop()
             // Verification attente de nouvel essai
             if (essaiEntre && entree != RIEN) {
                 essaiEntre = false;
-                essais[noEssai]->afficher(&lcd);
-                break;
+                // Le cas entree == HAUT doit etre execute normalement
+                if (entree != HAUT) {
+                    essaiAffiche = noEssai;
+                    essais[noEssai]->afficher(&lcd);
+                    break;
+                }
             }
 
             switch (entree) {
@@ -185,7 +189,7 @@ void loop()
                     // on retourne a l'affichage de l'essai courant
                     if (essaiAffiche != noEssai) {
                         essaiAffiche = noEssai;
-                        essais[noEssai]->afficher(&lcd, false);
+                        essais[noEssai]->afficher(&lcd);
                     }
                     // Si l'essai est commence
                     // On efface l'essai en cours
@@ -195,22 +199,23 @@ void loop()
                     }
                     // Sinon, on demande pour une nouvelle partie
                     else {
-                        /* NE FONCTIONNE PAS
                         afficherLcd(&lcd, "Nouvelle partie?", GAUCHE,
-                                    "X Non   O Oui", CENTRE);
-                        entree = lireBoutons();
-                        while (entree != X || entree != O || entree != CLR) {
+                                          "X Non   O Oui",    CENTRE);
+                        entree = RIEN;
+                        while (entree != X && entree != O && entree != CLR) {
                             entree = lireBoutons();
                         }
 
                         // Si choix de nouvelle partie
                         if (entree == O) {
-                        */
                             etatPartie = NOUVELLE;
                             // Desallocation memoire dynamique
                             for (int i = 0; i <= noEssai; i++)
                                 delete essais[i];
-                        //}
+                        }
+                        else {    // Sinon, retour a l'essai courant
+                            essais[noEssai]->afficher(&lcd);
+                        }
                     }
                     break;
 
