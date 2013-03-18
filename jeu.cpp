@@ -170,25 +170,31 @@ void Essai::comparerSequence(const Symbole seq[])
     
     // Pour verifier si la position a ete deja trouvee (vert)
     boolean trouve[DIFFICULTE_MAX];
+    // Pour verifier si l'essai a ete deja utilise (rouge)
+    boolean utilise[DIFFICULTE_MAX];
     
     for (i = 0; i < difficulte_; i++) {
         if (seq_[i] == seq[i]) {
             nbVert++;
             trouve[i] = true;
+	    utilise[i] = true;
         }
-        else
+        else {
             trouve[i] = false;
+	    utilise[i] = false;
+	}
     }
     
     // Verification pour nbRouge
-    // i itere sur seq
-    // j itere sur seq_
+    // i itere sur seq (a trouver)
+    // j itere sur seq_ (essai)
     for (i = 0; i < difficulte_; i++)
         if (!trouve[i]) {
             for (j = 0; j < difficulte_; j++)
-                if (seq_[j] == seq[i]) {
+                if (seq_[j] == seq[i] && !utilise[j]) {
                     nbRouge++;
                     trouve[i] = true;
+		    utilise[j] = true;
                     
                     // Passage au prochain element de la seq. a trouver
                     break;    // Evite les repetitions
