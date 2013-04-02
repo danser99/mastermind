@@ -11,6 +11,8 @@
 #include "io.h"                   // Controle des entrees/sorties
 #include "jeu.h"                  // Controle du jeu
 
+#include "MemoryFree.h"        // DEBUG: Free memory
+
 
 // Etat de la partie
 enum EtatPartie { NOUVELLE, ENCOURS, FIN_PERDU, FIN_GAGNE };
@@ -68,6 +70,8 @@ void setup()
 
     // Nouvelle partie
     etatPartie = NOUVELLE;
+    
+    Serial.println("======= NEW GAME =========");
 }
 
 
@@ -78,6 +82,7 @@ void loop()
     switch (etatPartie) {
 
         case NOUVELLE :
+            Serial.println("Nouvelle Partie:");
             // Demande du choix de difficulte
             difficulte = choisirDifficulte(&lcd);
             
@@ -96,7 +101,7 @@ void loop()
                 String texte = " essai";
                 if (meilleurScore > 1)
                     texte += String("s");
-                    
+                Serial.print("LCD:"); Serial.println((unsigned int) &lcd);
                 afficherLcd(&lcd, "Meilleure partie", GAUCHE,
                             String(meilleurScore) + texte, CENTRE);
                 delay(1000);
@@ -126,11 +131,15 @@ void loop()
 
             // Verification attente de nouvel essai
             if (essaiEntre && entree != RIEN) {
+                Serial.println("Nouvel essai1");
                 essaiEntre = false;
                 // Le cas entree == HAUT doit etre execute normalement
                 if (entree != HAUT) {
+                    Serial.println("Nouvel essai1 : Pas haut");
                     essaiAffiche = noEssai;
+                 //   Serial.println("Nouvel essai1 : Affiche");
                     essais[noEssai]->afficher(&lcd);
+                   Serial.println("Nouvel essai1 : Affiche ok");
                     break;
                 }
             }
@@ -143,16 +152,22 @@ void loop()
                 case COEUR :
                 case ETOILE :
                 case PLUS :
+                    Serial.println(String("\nTouche : ") + String(entree));
+                    Serial.print("Freemem: ");
+                    Serial.println((unsigned int) freeMemory());
                     // Ajout du symbole
+                    Serial.println("Ajout symbole");
                     essaiEntre = essais[noEssai]-> ajouterSymbole(entree);
-
+                    Serial.println("Symbole ajoute");
                     // Essai qui sera affiche
                     essaiAffiche = noEssai;
 
                     // Si l'essai est entre en entier
                     if (essaiEntre) {
+                        Serial.println("Check seq");
                         essais[noEssai]->comparerSequence(seqATrouver);
                         essais[noEssai++]->afficher(&lcd, true);
+                        Serial.print("LCD:"); Serial.println((unsigned int) &lcd);
 
                         // Gestion partie terminee (trop d'essais)
                         if (noEssai > NB_ESSAIS_MAX) {
@@ -166,16 +181,26 @@ void loop()
                         }
 
                         // Nouvel essai
+                        Serial.print("===== Nouvel Essai #");
+                        Serial.println(noEssai);
                         essais[noEssai] = new Essai (difficulte, noEssai);
+                        Serial.print("Essai cree -> Freemem =");
+                        Serial.println((unsigned int) freeMemory());
+                        
                     }
-                    else
+                    else {
+                        Serial.println("Affiche essai\n");
                         essais[noEssai]->afficher(&lcd, false);
-
+                        Serial.print("LCD:"); Serial.println((unsigned int) &lcd);
+                    }
                     break;
 
                 case HAUT :
                     // Si ce n'est pas le permier essai,
                     // affichage de l'essai precedent
+                    Serial.println(String("Touche : ") + String(entree));
+                    Serial.print("Freemem: ");
+                    Serial.println((unsigned int) freeMemory());
                     if (essaiAffiche > 0)
                         essais[--essaiAffiche]->afficher(&lcd, true);
                     break;
@@ -183,6 +208,9 @@ void loop()
                 case BAS :
                     // Si ce n'est pas l'essai courant,
                     // affichage de l'essai suivant
+                    Serial.println(String("Touche : ") + String(entree));
+                    Serial.print("Freemem: ");
+                    Serial.println((unsigned int) freeMemory());
                     if (essaiAffiche < noEssai)
                         essais[++essaiAffiche]->afficher(&lcd,
 						(essaiAffiche < noEssai));
@@ -191,6 +219,9 @@ void loop()
                 case CLR :
                     // Si l'essai affiche n'est pas l'essai courant
                     // on retourne a l'affichage de l'essai courant
+                    Serial.println(String("Touche : ") + String(entree));
+                    Serial.print("Freemem: ");
+                    Serial.println((unsigned int) freeMemory());
                     if (essaiAffiche != noEssai) {
                         essaiAffiche = noEssai;
                         essais[noEssai]->afficher(&lcd);
@@ -224,12 +255,14 @@ void loop()
                     break;
 
                 case RIEN :
-                default : ; // Aucune action
+                default : Serial.print(millis()); // Aucune action
             }
             break;
 
 
         case FIN_PERDU :
+                    Serial.println("FIN PERDU:");
+
             // Attente d'interaction
             if (lireBoutons() != RIEN) {
                 // Affichage de la solution
@@ -251,6 +284,7 @@ void loop()
 
         case FIN_GAGNE:
         default :
+            Serial.println("FIN_GAGNE:");
             String texte = " essais";
             delay(100);        // Leger delai
             afficherLcd(&lcd, "FELICITATIONS!", CENTRE);
@@ -280,4 +314,5 @@ void loop()
 
             etatPartie = NOUVELLE;
     }
+    delay(100);
 }
