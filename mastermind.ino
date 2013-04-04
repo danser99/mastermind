@@ -7,6 +7,7 @@
  
 #include <LiquidCrystal.h>        // Pour affichage LCD
 #include <EEPROM.h>
+#include "strings.h"              // Textes
 #include "reglages.h"             // Reglages materiels
 #include "io.h"                   // Controle des entrees/sorties
 #include "jeu.h"                  // Controle du jeu
@@ -46,7 +47,7 @@ void setup()
 {
     // Initialisation des ports d'entree et de sortie
     initialiserIO();
-
+    Serial.begin(9600);
     // Initialisation des caracteres speciaux pour LCD
     lcd.createChar(CAR_HAUT, CAR_HAUT_TABLE);
     lcd.createChar(CAR_BAS, CAR_BAS_TABLE);
@@ -57,7 +58,7 @@ void setup()
     lcd.begin(LCD_NB_COLONNES, LCD_NB_LIGNES);
 
     // Affichage ecran accueil
-    afficherLcd(&lcd, "Mastermind", CENTRE);
+    afficherLcd(&lcd, String(STR_TITRE), CENTRE);
     delay(1500);        // Attente de 1 seconde
 
     // Initialisation de la sequence aleatoire avec du bruit
@@ -93,14 +94,18 @@ void loop()
                 if (meilleurScore > 1)
                     texte += String("s");
                     
-                afficherLcd(&lcd, "Meilleure partie", GAUCHE,
+                afficherLcd(&lcd, STR_MEILLEURE_PARTIE, GAUCHE,
                             String(meilleurScore) + texte, CENTRE);
                 delay(1000);
             }
             
             // Generation de sequence aleatoire
-            for (int i = 0; i < difficulte; i++)
+            for (int i = 0; i < difficulte; i++) {
                 seqATrouver[i] = Symbole(random(X, PLUS + 1));
+                Serial.print(seqATrouver[i]);
+                
+            }
+            Serial.println(obtenirStr(seqATrouver, difficulte));
             
             // Initialisation des essais
             noEssai = 0;
@@ -200,8 +205,8 @@ void loop()
                     }
                     // Sinon, on demande pour une nouvelle partie
                     else {
-                        afficherLcd(&lcd, "Nouvelle partie?", GAUCHE,
-                                          "X Non   O Oui",    CENTRE);
+                        afficherLcd(&lcd, STR_NP, GAUCHE,
+                                          STR_NP_OPTIONS, CENTRE);
                         entree = RIEN;
                         while (entree != X && entree != O && entree != CLR) {
                             entree = lireBoutons();
@@ -232,7 +237,9 @@ void loop()
                 // Affichage de la solution
                 String ligne2 = String("SOL: ") +
                                 obtenirStr(seqATrouver, difficulte);
-                afficherLcd(&lcd, "Partie Terminee", CENTRE,
+                Serial.println(ligne2);
+                Serial.println(obtenirStr(seqATrouver, difficulte));
+                afficherLcd(&lcd, STR_PARTIE_TERMINEE, CENTRE,
                             ligne2, GAUCHE, false, false);
 
                 delay(3000);    // Attente 3 sec
@@ -250,19 +257,19 @@ void loop()
         default :
             String texte = " essais";
             delay(100);        // Leger delai
-            afficherLcd(&lcd, "FELICITATIONS!", CENTRE);
+            afficherLcd(&lcd, STR_FELICITATIONS, CENTRE);
             delay(1000);
             
             // Cas gagner en 1 essai
             if (noEssai == 1)
                 texte = " essai";
             
-            afficherLcd(&lcd, "Partie terminee", GAUCHE,
+            afficherLcd(&lcd, STR_PARTIE_TERMINEE, GAUCHE,
                         String("en ") + String(noEssai) + texte, GAUCHE);
                         
             if (noEssai < meilleurScore || meilleurScore == 0) {
                 delay(1500);
-                afficherLcd(&lcd, "Meilleure partie", GAUCHE,
+                afficherLcd(&lcd, STR_MP, GAUCHE,
                         String(noEssai) + texte, CENTRE);
                         
                 // Enregistrement meilleurScore

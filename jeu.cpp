@@ -6,6 +6,7 @@
  **************************************************************/
  
 #include "reglages.h"
+#include "strings.h"
 #include "jeu.h"
 #include <EEPROM.h>
 #include <LiquidCrystal.h>
@@ -221,7 +222,7 @@ void Essai::comparerSequence(const Symbole seq[])
  **************************************************************/
 void Essai::afficher(LiquidCrystal *lcd, boolean bas) const
 {
-    String ligne1 = String("Essai ") + String(noEssai_ + 1);
+    String ligne1 = STR_ESSAI + String(noEssai_ + 1);
     String ligne2 = obtenirStr(seq_, difficulte_);
     
     afficherLcd(lcd, ligne1, GAUCHE, ligne2, CENTRE,
@@ -333,8 +334,8 @@ unsigned int choisirDifficulte(LiquidCrystal *lcd)
     Symbole entree = RIEN;
     unsigned int dif;
 
-    afficherLcd(lcd, String("X Facile"), GAUCHE,
-                String("O Norm   ") + String(SYMB_CARRE) + String(" Diff"),
+    afficherLcd(lcd, STR_DIFF_FACILE, GAUCHE,
+                STR_DIFF_NORM + String(SYMB_CARRE) + STR_DIFF_DIFF,
                 GAUCHE);
 
     while ( entree != X && entree != O && entree != CARRE )
@@ -371,10 +372,10 @@ String obtenirStr(const Symbole seq[], unsigned int longueur)
     for (int i = 0; i < longueur; i++) {
         switch (seq[i]) {
             case X :
-                s += String("X ");
+                s += STR_X;
                 break;
             case O :
-                s += String("O ");
+                s += STR_O;
                 break;
             case CARRE :
                 s += (String(SYMB_CARRE) + String(" "));
@@ -383,15 +384,16 @@ String obtenirStr(const Symbole seq[], unsigned int longueur)
                 s += String(SYMB_COEUR + String(" "));
                 break;
             case ETOILE :
-                s += String("* ");
+                s += STR_ETOILE;
                 break;
             case PLUS :
-                s += String("+ ");
+                s += STR_PLUS;
                 break;
             case RIEN :
             default :
-                s += String("_ ");
+                s += STR_RIEN;
         }
+        Serial.print(s);Serial.println(seq[i]);
     }
 
     s.trim();    // Retire l'espace a la fin

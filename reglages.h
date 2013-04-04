@@ -39,7 +39,7 @@ const int PIN_DEL_VERTE[DIFFICULTE_MAX] = {
 
 
 // Affichage LCD
-#define LCD_8BIT_MODE           // Si mode 8bits
+//#define LCD_8BIT_MODE           // Si mode 8bits
 
 #define PIN_LCD_RS         12
 #define PIN_LCD_RW         10   // Optionel
@@ -53,7 +53,7 @@ const int PIN_DEL_VERTE[DIFFICULTE_MAX] = {
 #define PIN_LCD_DATA0      8
 #define PIN_LCD_DATA1      7
 #define PIN_LCD_DATA2      6
-#define PIN_LCD_DATA3      1
+#define PIN_LCD_DATA3      14
 
 
 #define LCD_CONTRAST_VAL   50    // Valeur pour ajustement du contrast
@@ -105,5 +105,8 @@ const int PIN_DEL_VERTE[DIFFICULTE_MAX] = {
 #define SYMB_COEUR       '$'
 #define SYMB_CARRE       '@'
 
+
+// Choix de la langue
+#define LANGUE_FRANCAIS
 
 #endif
