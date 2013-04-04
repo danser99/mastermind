@@ -196,6 +196,7 @@ void loop()
                     else if (essaiAffiche == noEssai &&
 			     essais[noEssai]->obtenirRendu()) {
                         essais[noEssai]->effacerSequence();
+                        essais[noEssai]->afficher(&lcd);
                     }
                     // Sinon, on demande pour une nouvelle partie
                     else {
@@ -229,7 +230,7 @@ void loop()
             // Attente d'interaction
             if (lireBoutons() != RIEN) {
                 // Affichage de la solution
-                String ligne2 = String("SOLUTION: ") +
+                String ligne2 = String("SOL: ") +
                                 obtenirStr(seqATrouver, difficulte);
                 afficherLcd(&lcd, "Partie Terminee", CENTRE,
                             ligne2, GAUCHE, false, false);

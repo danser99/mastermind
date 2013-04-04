@@ -16,6 +16,7 @@
 class Essai
 {
     public:
+        Essai();
         Essai(unsigned int difficulte, unsigned int noEssai);
         ~Essai();
         

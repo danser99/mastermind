@@ -37,7 +37,21 @@ Essai::Essai(unsigned int difficulte, unsigned int noEssai)
     nbRouge_ = 0;    
 }
 
+Essai::Essai()
+{
+    // Initialisation de la sequence
 
+    for (int i = 0; i < DIFFICULTE_MAX; i++)
+        seq_[i] = RIEN;
+    
+    // Initialisation des attributs
+    difficulte_ = 0;
+    noEssai_ = 0;
+    
+    rendu_ = 0;
+    nbVert_ = 0;
+    nbRouge_ = 0;    
+}
 
 /**************************************************************
  *    Essai::~Essai
@@ -223,7 +237,6 @@ void Essai::afficher(LiquidCrystal *lcd, boolean bas) const
 {
     String ligne1 = String("Essai ") + String(noEssai_ + 1);
     String ligne2 = obtenirStr(seq_, difficulte_);
-    
     afficherLcd(lcd, ligne1, GAUCHE, ligne2, CENTRE,
                 (noEssai_), // False si 1er essai
                 bas);

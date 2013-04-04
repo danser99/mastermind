@@ -22,7 +22,7 @@
 
 // Nombre d'essais maximal alloue
 // Un nombre trop eleve peut entrainer un probleme d'affichage et/ou de memoire
-#define NB_ESSAIS_MAX     99
+#define NB_ESSAIS_MAX     24
 
 
 // --------------------------------------
