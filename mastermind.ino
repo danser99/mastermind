@@ -18,7 +18,7 @@ enum EtatPartie { NOUVELLE, ENCOURS, FIN_PERDU, FIN_GAGNE };
 
 // Variables utilisees
 EtatPartie etatPartie;        // L'etat de la partie
-unsigned int difficulte;      // La difficulte du jeu
+short int difficulte;      // La difficulte du jeu
 unsigned int meilleurScore;   // Le meilleur score pour la difficulte
 Essai *essais[NB_ESSAIS_MAX]; // Le tableau des essais
 Symbole seqATrouver[DIFFICULTE_MAX] = {RIEN}; // La sequence de symboles a trouver
@@ -47,7 +47,6 @@ void setup()
 {
     // Initialisation des ports d'entree et de sortie
     initialiserIO();
-    Serial.begin(9600);
     // Initialisation des caracteres speciaux pour LCD
     lcd.createChar(CAR_HAUT, CAR_HAUT_TABLE);
     lcd.createChar(CAR_BAS, CAR_BAS_TABLE);
@@ -60,9 +59,6 @@ void setup()
     // Affichage ecran accueil
     afficherLcd(&lcd, String(STR_TITRE), CENTRE);
     delay(1500);        // Attente de 1 seconde
-
-    // Initialisation de la sequence aleatoire avec du bruit
-    //randomSeed(analogRead(PIN_ANALOG_VIDE));
 
     // Nouvelle partie
     etatPartie = NOUVELLE;
@@ -100,12 +96,10 @@ void loop()
             }
             
             // Generation de sequence aleatoire
-            for (int i = 0; i < difficulte; i++) {
+            for (short int i = 0; i < difficulte; i++) {
                 seqATrouver[i] = Symbole(random(X, PLUS + 1));
-                Serial.print(seqATrouver[i]);
                 
             }
-            Serial.println(obtenirStr(seqATrouver, difficulte));
             
             // Initialisation des essais
             noEssai = 0;
@@ -235,17 +229,14 @@ void loop()
             // Attente d'interaction
             if (lireBoutons() != RIEN) {
                 // Affichage de la solution
-                String ligne2 = String("SOL: ") +
-                                obtenirStr(seqATrouver, difficulte);
-                Serial.println(ligne2);
-                Serial.println(obtenirStr(seqATrouver, difficulte));
+                String ligne2 = STR_SOL + obtenirStr(seqATrouver, difficulte);
                 afficherLcd(&lcd, STR_PARTIE_TERMINEE, CENTRE,
                             ligne2, GAUCHE, false, false);
 
                 delay(3000);    // Attente 3 sec
                 
                 // Desallocation memoire dynamique
-                for (int i = 0; i < noEssai; i++)
+                for (unsigned int i = 0; i < noEssai; i++)
                     delete essais[i];
                     
                 etatPartie = NOUVELLE;    // Nouvelle partie
@@ -279,7 +270,7 @@ void loop()
             delay(3000);
 
             // Desallocation memoire dynamique
-            for (int i = 0; i < noEssai; i++)
+            for (unsigned int i = 0; i < noEssai; i++)
                 delete essais[i];
 
             etatPartie = NOUVELLE;

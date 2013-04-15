@@ -39,7 +39,7 @@ const int PIN_DEL_VERTE[DIFFICULTE_MAX] = {
 
 
 // Affichage LCD
-//#define LCD_8BIT_MODE           // Si mode 8bits
+#define LCD_8BIT_MODE           // Si mode 8bits
 
 #define PIN_LCD_RS         12
 #define PIN_LCD_RW         10   // Optionel

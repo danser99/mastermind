@@ -16,7 +16,7 @@
 class Essai
 {
     public:
-        Essai(unsigned int difficulte, unsigned int noEssai);
+        Essai(short int difficulte, unsigned int noEssai);
         ~Essai();
         
         // Pour obtenir les elements
@@ -42,24 +42,24 @@ class Essai
         unsigned int nbRouge_;    // Le nombre de reponses mal placees
 				  // pour la sequence
 
-        unsigned int difficulte_; // La difficulte de la partie
+        short int difficulte_; // La difficulte de la partie
         unsigned int noEssai_;    // Le numero de l'essai courant
 };
 
 
 // Fonctions d'enregistrement et de lecture de meilleur score
 // (utilise la EEPROM)
-void enregistrerScore(unsigned int difficulte, unsigned int score);
-unsigned int lireScore(unsigned int difficulte);
+void enregistrerScore(short int difficulte, unsigned int score);
+unsigned int lireScore(short int difficulte);
 
 // Fonction de nouvelle partie
-unsigned int choisirDifficulte(LiquidCrystal *lcd);
+short int choisirDifficulte(LiquidCrystal *lcd);
 
 // Fonction de generation de sequence aleatoire
-Symbole* genererSequence(unsigned int difficulte);
+Symbole* genererSequence(short int difficulte);
 
 //Fonction pour obtenir une string a partir d'une sequence
-String obtenirStr(const Symbole seq[], unsigned int longueur);
+String obtenirStr(const Symbole seq[], short int longueur);
 
 
 #endif

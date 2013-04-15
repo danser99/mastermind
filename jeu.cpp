@@ -22,11 +22,11 @@
  *    Retour: Aucun
  *
  **************************************************************/
-Essai::Essai(unsigned int difficulte, unsigned int noEssai)
+Essai::Essai(short int difficulte, unsigned int noEssai)
 {
     // Initialisation de la sequence
 
-    for (int i = 0; i < DIFFICULTE_MAX; i++)
+    for (short int i = 0; i < DIFFICULTE_MAX; i++)
         seq_[i] = RIEN;
     
     // Initialisation des attributs
@@ -142,7 +142,7 @@ boolean Essai::ajouterSymbole(Symbole symbole)
 void Essai::effacerSequence()
 {
     // Reinitialisation des attributs
-    for (int i = 0; i < difficulte_; i++)
+    for (short int i = 0; i < difficulte_; i++)
         seq_[i] = RIEN;
     
     rendu_ = 0;
@@ -167,7 +167,7 @@ void Essai::comparerSequence(const Symbole seq[])
 {
     unsigned int nbRouge = 0;
     unsigned int nbVert = 0;
-    int i, j;     // Pour iterations
+    short int i, j;     // Pour iterations
     
     // Pour verifier si la position a ete deja trouvee (vert)
     boolean trouve[DIFFICULTE_MAX];
@@ -245,10 +245,10 @@ void Essai::afficher(LiquidCrystal *lcd, boolean bas) const
  *    Retour:    Aucun
  *
  **************************************************************/
-void enregistrerScore(unsigned int difficulte, unsigned int score)
+void enregistrerScore(short int difficulte, unsigned int score)
 {
     int adr = 0;
-    byte val = 0;
+    short int val = 0;
     int ref = 0x000000FF;
     
     switch (difficulte) {
@@ -289,7 +289,7 @@ void enregistrerScore(unsigned int difficulte, unsigned int score)
  *    Retour:    Le score enregistre
  *
  **************************************************************/
-unsigned int lireScore(unsigned int difficulte)
+unsigned int lireScore(short int difficulte)
 {
     int adr = 0;
     unsigned int score = 0;
@@ -329,7 +329,7 @@ unsigned int lireScore(unsigned int difficulte)
  *    Retour:    La difficulte choisie
  *
  **************************************************************/
-unsigned int choisirDifficulte(LiquidCrystal *lcd)
+short int choisirDifficulte(LiquidCrystal *lcd)
 {
     Symbole entree = RIEN;
     unsigned int dif;
@@ -365,11 +365,11 @@ unsigned int choisirDifficulte(LiquidCrystal *lcd)
  *    Retour:    La chaine de texte contenant la sequence
  *
  **************************************************************/
-String obtenirStr(const Symbole seq[], unsigned int longueur)
+String obtenirStr(const Symbole seq[DIFFICULTE_MAX], short int longueur)
 {
     String s = "";
 
-    for (int i = 0; i < longueur; i++) {
+    for (short int i = 0; i < longueur; i++) {
         switch (seq[i]) {
             case X :
                 s += STR_X;
@@ -393,7 +393,6 @@ String obtenirStr(const Symbole seq[], unsigned int longueur)
             default :
                 s += STR_RIEN;
         }
-        Serial.print(s);Serial.println(seq[i]);
     }
 
     s.trim();    // Retire l'espace a la fin
