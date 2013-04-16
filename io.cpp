@@ -11,7 +11,6 @@
 #include <LiquidCrystal.h>
 
 
-
 // Caracteres
 // Fleche haut
 byte CAR_HAUT_TABLE[8] = {

@@ -72,6 +72,10 @@ void loop()
     switch (etatPartie) {
 
         case NOUVELLE :
+        
+            // Eteindre les DEL
+            allumerDel(0,0);
+        
             // Demande du choix de difficulte
             difficulte = choisirDifficulte(&lcd);
             
@@ -106,6 +110,11 @@ void loop()
             essaiAffiche = 0;
             essaiEntre = false;
             essais[noEssai] = new Essai(difficulte, noEssai);
+            
+            if (essais[noEssai] == 0){
+                afficherLcd(&lcd, "ERREUR MEM", CENTRE);
+                while (1);
+            }
             
             // Affichage de l'essai #1
             essais[noEssai]->afficher(&lcd);

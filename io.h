@@ -45,7 +45,7 @@ const int CAR_CARRE   = 4;
 // Caracteres
 extern byte CAR_HAUT_TABLE[8];    // Fleche haut
 extern byte CAR_BAS_TABLE[8];     // Fleche bas
-extern byte CAR_CARRE_TABLE[8];
+extern byte CAR_CARRE_TABLE[8];   // Carre
 extern byte CAR_COEUR_TABLE[8];   // Coeur
 
 

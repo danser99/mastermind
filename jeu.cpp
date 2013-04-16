@@ -222,10 +222,8 @@ void Essai::comparerSequence(const Symbole seq[])
  **************************************************************/
 void Essai::afficher(LiquidCrystal *lcd, boolean bas) const
 {
-    String ligne1 = STR_ESSAI + String(noEssai_ + 1);
-    String ligne2 = obtenirStr(seq_, difficulte_);
-    
-    afficherLcd(lcd, ligne1, GAUCHE, ligne2, CENTRE,
+    afficherLcd(lcd, STR_ESSAI + String(noEssai_ + 1), GAUCHE,
+                obtenirStr(seq_, difficulte_), CENTRE,
                 (noEssai_), // False si 1er essai
                 bas);
     allumerDel(nbRouge_, nbVert_);
