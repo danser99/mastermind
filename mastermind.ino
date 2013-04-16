@@ -7,33 +7,10 @@
  
 #include <LiquidCrystal.h>        // Pour affichage LCD
 #include <EEPROM.h>
-#include <avr/pgmspace.h>         // Pour memoire programme
 #include "strings.h"              // Textes
 #include "reglages.h"             // Reglages materiels
 #include "io.h"                   // Controle des entrees/sorties
 #include "jeu.h"                  // Controle du jeu
-
-PROGMEM prog_char STR_TITRE[] = "Mastermind";
-PROGMEM prog_char STR_NP[] = "Nouvelle partie?";
-PROGMEM prog_char STR_NP_OPTIONS[] = "X Non   O Oui";
-PROGMEM prog_char STR_PARTIE_TERMINEE[] = "Partie terminee";
-PROGMEM prog_char STR_FELICITATIONS[] = "FELICITATIONS!";
-PROGMEM prog_char STR_MP[] = "Meilleure partie";
-PROGMEM prog_char STR_SOL[] = "SOL: ";
-
-PROGMEM const char *STR_TBLa[] = {   
-  STR_TITRE, STR_NP, STR_NP_OPTIONS,
-  STR_PARTIE_TERMINEE, STR_FELICITATIONS,
-  STR_MP, STR_SOL
-
-};
-#define iSTR_TITRE           0
-#define iSTR_NP              1
-#define iSTR_NP_OPTIONS      2
-#define iSTR_PARTIE_TERMINEE 3
-#define iSTR_FELICITATIONS   4
-#define iSTR_MP              5
-#define iSTR_SOL             6
 
 
 // Etat de la partie
@@ -49,7 +26,6 @@ Symbole entree;               // Le bouton appuye
 bool essaiEntre;              // Si l'essai en cours a ete entre
 unsigned int noEssai;         // Le numero de l'essai en cours
 unsigned int essaiAffiche;    // Le numero de l'essai affiche (pour navigation)
-char buffer[20];              // Pour les strings a recuperer
 
 // L'objet pour affichage LCD
 #ifdef LCD_8BIT_MODE
@@ -81,8 +57,7 @@ void setup()
     lcd.begin(LCD_NB_COLONNES, LCD_NB_LIGNES);
 
     // Affichage ecran accueil
-    strcpy_P(buffer, (char*)pgm_read_word(&(STR_TBLa[iSTR_TITRE])));
-    afficherLcd(&lcd, String(buffer), CENTRE);
+    afficherLcd(&lcd, String(STR_TITRE), CENTRE);
     delay(1500);        // Attente de 1 seconde
 
     // Nouvelle partie
@@ -115,8 +90,7 @@ void loop()
                 if (meilleurScore > 1)
                     texte += String("s");
                     
-                strcpy_P(buffer, (char*)pgm_read_word(&(STR_TBLa[iSTR_MP])));
-                afficherLcd(&lcd, buffer, GAUCHE,
+                afficherLcd(&lcd, STR_MEILLEURE_PARTIE, GAUCHE,
                             String(meilleurScore) + texte, CENTRE);
                 delay(1000);
             }
@@ -225,11 +199,8 @@ void loop()
                     }
                     // Sinon, on demande pour une nouvelle partie
                     else {
-                        strcpy_P(buffer, (char*)pgm_read_word(&(STR_TBLa[iSTR_NP])));
-                        String ligne1 = buffer;
-                        strcpy_P(buffer, (char*)pgm_read_word(&(STR_TBLa[iSTR_NP_OPTIONS])));
-                        afficherLcd(&lcd, ligne1, GAUCHE,
-                                          buffer, CENTRE);
+                        afficherLcd(&lcd, STR_NP, GAUCHE,
+                                          STR_NP_OPTIONS, CENTRE);
                         entree = RIEN;
                         while (entree != X && entree != O && entree != CLR) {
                             entree = lireBoutons();
@@ -258,10 +229,9 @@ void loop()
             // Attente d'interaction
             if (lireBoutons() != RIEN) {
                 // Affichage de la solution
-                strcpy_P(buffer, (char*)pgm_read_word(&(STR_TBLa[iSTR_SOL])));
-                String ligne2 = buffer + obtenirStr(seqATrouver, difficulte);
-                strcpy_P(buffer, (char*)pgm_read_word(&(STR_TBLa[iSTR_PARTIE_TERMINEE])));
-                afficherLcd(&lcd, buffer, CENTRE, ligne2, GAUCHE, false, false);
+                String ligne2 = STR_SOL + obtenirStr(seqATrouver, difficulte);
+                afficherLcd(&lcd, STR_PARTIE_TERMINEE, CENTRE,
+                            ligne2, GAUCHE, false, false);
 
                 delay(3000);    // Attente 3 sec
                 
@@ -278,22 +248,19 @@ void loop()
         default :
             String texte = " essais";
             delay(100);        // Leger delai
-            strcpy_P(buffer, (char*)pgm_read_word(&(STR_TBLa[iSTR_FELICITATIONS])));
-            afficherLcd(&lcd, buffer, CENTRE);
+            afficherLcd(&lcd, STR_FELICITATIONS, CENTRE);
             delay(1000);
             
             // Cas gagner en 1 essai
             if (noEssai == 1)
                 texte = " essai";
             
-            strcpy_P(buffer, (char*)pgm_read_word(&(STR_TBLa[iSTR_PARTIE_TERMINEE])));
-            afficherLcd(&lcd, buffer, GAUCHE,
+            afficherLcd(&lcd, STR_PARTIE_TERMINEE, GAUCHE,
                         String("en ") + String(noEssai) + texte, GAUCHE);
                         
             if (noEssai < meilleurScore || meilleurScore == 0) {
                 delay(1500);
-                strcpy_P(buffer, (char*)pgm_read_word(&(STR_TBLa[iSTR_MP])));
-                afficherLcd(&lcd, buffer, GAUCHE,
+                afficherLcd(&lcd, STR_MP, GAUCHE,
                         String(noEssai) + texte, CENTRE);
                         
                 // Enregistrement meilleurScore
