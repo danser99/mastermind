@@ -222,6 +222,7 @@ void Essai::comparerSequence(const Symbole seq[])
  **************************************************************/
 void Essai::afficher(LiquidCrystal *lcd, boolean bas) const
 {
+    
     String ligne1 = STR_ESSAI + String(noEssai_ + 1);
     String ligne2 = obtenirStr(seq_, difficulte_);
     
@@ -335,8 +336,8 @@ short int choisirDifficulte(LiquidCrystal *lcd)
     unsigned int dif;
 
     afficherLcd(lcd, STR_DIFF_FACILE, GAUCHE,
-                STR_DIFF_NORM + String(SYMB_CARRE) + STR_DIFF_DIFF,
-                GAUCHE);
+               STR_DIFF_NORM + String(SYMB_CARRE) +
+                STR_DIFF_DIFF, GAUCHE);
 
     while ( entree != X && entree != O && entree != CARRE )
         entree = lireBoutons();

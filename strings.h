@@ -13,14 +13,21 @@
 
 //#ifdef LANGUE_FRANCAIS
 
-const String STR_TITRE = "Mastermind";
-const String STR_MEILLEURE_PARTIE = "Meilleure partie";
-const String STR_NP = "Nouvelle partie?";
-const String STR_NP_OPTIONS = "X Non   O Oui";
-const String STR_PARTIE_TERMINEE = "Partie terminee";
-const String STR_FELICITATIONS = "FELICITATIONS!";
-const String STR_MP = "Meilleure partie";
-const String STR_SOL = "SOL: ";
+
+
+
+/*
+#define iSTR_ESSAI            7
+#define iSTR_DIFF_FACILE      8
+#define iSTR_DIFF_NORM        9
+#define iSTR_DIFF_DIFF        10
+#define iSTR_X                11
+#define iSTR_O                12
+#define iSTR_ETOILE           13
+#define iSTR_PLUS             14
+#define iSTR_RIEN             15
+*/
+
 
 // char[10]s jeu.cpp
 const String STR_ESSAI = "Essai #";
@@ -32,6 +39,8 @@ const String STR_O = "O ";
 const String STR_ETOILE = "* ";
 const String STR_PLUS = "+ ";
 const String STR_RIEN = "_ ";
+
+
 
 // Strings mastermind.ino
 /*
