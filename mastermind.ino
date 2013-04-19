@@ -18,7 +18,7 @@ enum EtatPartie { NOUVELLE, ENCOURS, FIN_PERDU, FIN_GAGNE };
 
 // Variables utilisees
 EtatPartie etatPartie;        // L'etat de la partie
-short int difficulte;      // La difficulte du jeu
+short int difficulte;         // La difficulte du jeu
 unsigned int meilleurScore;   // Le meilleur score pour la difficulte
 Essai *essais[NB_ESSAIS_MAX]; // Le tableau des essais
 Symbole seqATrouver[DIFFICULTE_MAX] = {RIEN}; // La sequence de symboles a trouver
